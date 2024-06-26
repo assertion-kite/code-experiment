@@ -111,8 +111,8 @@ func (c *LFUCache) updateFreq(elem *list.Element, newFreq int) {
 // findNewMinFreq 辅助函数，用于找到新的最小频率
 func (c *LFUCache) findNewMinFreq() int {
 	minFreq := math.MaxInt32 // 初始化为一个很大的数
-	for freq, list := range c.freqMap {
-		if list.Len() > 0 && freq < minFreq {
+	for freq, list1 := range c.freqMap {
+		if list1.Len() > 0 && freq < minFreq {
 			minFreq = freq
 		}
 	}

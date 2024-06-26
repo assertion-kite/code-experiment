@@ -35,6 +35,7 @@ func (c *LRUCache) Get(key int) int {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	if elem, ok := c.cache[key]; ok {
+		// 移动到前面
 		c.list.MoveToFront(elem)
 		return elem.Value.(*Pair).value
 	}
@@ -52,7 +53,6 @@ func (c *LRUCache) Put(key int, value int) {
 		return
 	}
 
-	// New pair
 	pair := &Pair{key: key, value: value}
 	elem := c.list.PushFront(pair)
 	c.cache[key] = elem
@@ -60,6 +60,7 @@ func (c *LRUCache) Put(key int, value int) {
 	for c.list.Len() > c.capacity {
 		back := c.list.Back()
 		if back != nil {
+			// 删除最后一个
 			c.list.Remove(back)
 			delete(c.cache, back.Value.(*Pair).key)
 		}

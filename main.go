@@ -13,6 +13,18 @@ import (
 	"time"
 )
 
+type A struct {
+	Name string
+}
+
+type B struct {
+	Name string
+}
+
+type C interface {
+	A | B
+}
+
 func main() {
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&multiStatements=true&loc=Local",
 		"go",
@@ -21,7 +33,6 @@ func main() {
 		"3306",
 		"go",
 	)
-	fmt.Println(dsn)
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN: dsn,
 	}), &gorm.Config{
@@ -55,5 +66,6 @@ func main() {
 	}
 	route.RegisterRoute([]route.RegisterRouteFunc{
 		NewUserWeb(db).RegisterUserRoute,
+		NewOrderWeb(db).RegisterOrderRoute,
 	})
 }

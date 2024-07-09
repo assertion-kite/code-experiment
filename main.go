@@ -13,18 +13,6 @@ import (
 	"time"
 )
 
-type A struct {
-	Name string
-}
-
-type B struct {
-	Name string
-}
-
-type C interface {
-	A | B
-}
-
 func main() {
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&multiStatements=true&loc=Local",
 		"go",

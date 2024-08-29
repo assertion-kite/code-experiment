@@ -49,6 +49,7 @@ func main() {
 		},
 	}
 	err = db.Use(sharding.Register(shardingConfig, "user"))
+
 	if err != nil {
 		return
 	}

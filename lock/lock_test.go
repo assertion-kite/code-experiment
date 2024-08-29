@@ -1,8 +1,10 @@
 package lock
 
 import (
+	"context"
 	"github.com/redis/go-redis/v9"
 	"testing"
+	"time"
 )
 
 func TestName(t *testing.T) {
@@ -10,5 +12,11 @@ func TestName(t *testing.T) {
 		Addr: "localhost:6379",
 		DB:   0,
 	})
-	NewClient(redisCli).TryLock()
+	c := NewClient(redisCli)
+	l, err := c.TryLock(context.TODO(), "test", time.Second*10)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(l.Unlock(context.TODO()))
+
 }

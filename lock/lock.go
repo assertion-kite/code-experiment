@@ -105,7 +105,7 @@ func (c *Client) Lock(ctx context.Context, key string, expiration time.Duration,
 			} else {
 				err = fmt.Errorf("锁被人持有: %w", ErrFailedToPreemptLock)
 			}
-			return nil, fmt.Errorf("rlock: 重试机会耗尽，%w", err)
+			return nil, fmt.Errorf("lock: 重试机会耗尽，%w", err)
 		}
 		if timer == nil {
 			timer = time.NewTimer(interval)
